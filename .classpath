@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="sample/java/netsample/src/main/java"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="/Users/pranoti.mulay/.m2/repository/net/sf/jopt-simple/jopt-simple/5.0.2/jopt-simple-5.0.2.jar" sourcepath="/Users/pranoti.mulay/.m2/repository/net/sf/jopt-simple/jopt-simple/5.0.2/jopt-simple-5.0.2-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="net.sf.jopt-simple"/>
+			<attribute name="maven.artifactId" value="jopt-simple"/>
+			<attribute name="maven.version" value="5.0.2"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/pranoti.mulay/.m2/repository/org/slf4j/slf4j-api/1.7.21/slf4j-api-1.7.21.jar" sourcepath="/Users/pranoti.mulay/.m2/repository/org/slf4j/slf4j-api/1.7.21/slf4j-api-1.7.21-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.slf4j"/>
+			<attribute name="maven.artifactId" value="slf4j-api"/>
+			<attribute name="maven.version" value="1.7.21"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

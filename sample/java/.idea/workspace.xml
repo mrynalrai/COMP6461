@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1432672c-3e71-42f7-9194-28156704781b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../.classpath" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.project" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/java.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/netsample/.classpath" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/netsample/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/netsample/.project" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/netsample/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Starter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netsample/src/main/java/ca/concordia/echo/BlockingEchoClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/netsample/src/main/java/ca/concordia/echo/BlockingEchoClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netsample/src/main/java/ca/concordia/echo/BlockingEchoServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/netsample/src/main/java/ca/concordia/echo/BlockingEchoServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netsample/src/main/java/ca/concordia/echo/MultiplexEchoServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/netsample/src/main/java/ca/concordia/echo/MultiplexEchoServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netsample/src/main/java/ca/concordia/time/BlockingTimeClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/netsample/src/main/java/ca/concordia/time/BlockingTimeClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netsample/src/main/java/ca/concordia/time/BlockingTimeServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/netsample/src/main/java/ca/concordia/time/BlockingTimeServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/src/input/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../src/src/input/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../src/src/test/Tester.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../src/src/test/Tester.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="1iO4Nbm1HMbyhEZJIGX0wYNsEhf" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RebelAgentSelection">
+    <selection>jr</selection>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1432672c-3e71-42f7-9194-28156704781b" name="Default Changelist" comment="" />
+      <created>1601765265139</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1601765265139</updated>
+      <workItem from="1601765267851" duration="267000" />
+      <workItem from="1601765957961" duration="2172000" />
+      <workItem from="1601903110993" duration="973000" />
+      <workItem from="1602026540074" duration="464000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="622" y="335" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1601855218518">
+      <screen x="0" y="23" width="1792" height="1015" />
+    </state>
+    <state x="622" y="335" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1792.1015@0.23.1792.1015" timestamp="1601855218518" />
+    <state x="511" y="222" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog" timestamp="1601855093104">
+      <screen x="0" y="23" width="1792" height="1015" />
+    </state>
+    <state x="511" y="222" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog/0.23.1792.1015@0.23.1792.1015" timestamp="1601855093104" />
+    <state x="597" y="281" width="598" height="490" key="find.popup" timestamp="1601835811249">
+      <screen x="0" y="23" width="1792" height="1015" />
+    </state>
+    <state x="597" y="281" width="598" height="490" key="find.popup/0.23.1792.1015@0.23.1792.1015" timestamp="1601835811249" />
+    <state x="264" y="148" key="new project wizard" timestamp="1601855087848">
+      <screen x="0" y="23" width="1792" height="1015" />
+    </state>
+    <state x="264" y="148" key="new project wizard/0.23.1792.1015@0.23.1792.1015" timestamp="1601855087848" />
+  </component>
+</project>

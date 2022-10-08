@@ -1,0 +1,16 @@
+httpc help
+
+httpc help get
+
+httpc help post
+
+httpc get 'http://httpbin.org/get?course=networking&assignment=1'
+
+httpc get -v 'http://httpbin.org/get?course=networking&assignment=1'
+
+httpc post -h Content-Type:application/json -d '{"Assignment": 1}' http://httpbin.org/post
+
+httpc post -v -d '{"Assignment": 1}' http://httpbin.org/post
+
+httpc post -v -f file-data-test.txt http://httpbin.org/post
+
