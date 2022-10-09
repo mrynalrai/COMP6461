@@ -2,6 +2,8 @@ package src.processor;
 
 import src.input.Command;
 
+import java.util.Arrays;
+
 public class InputParser {
 
 	public Command parseInput(String commandStr) {
@@ -17,6 +19,7 @@ public class InputParser {
 		}
 
 		String commandType = tokens[1];
+		// System.out.println(Arrays.toString(tokens));
 		switch (commandType) {
 
 		case "help":
@@ -24,6 +27,10 @@ public class InputParser {
 			return printHelpMenu(helpType);
 
 		case "post":
+			if (Arrays.stream(tokens).anyMatch("-d"::equals) && Arrays.stream(tokens).anyMatch("-f"::equals)) {
+				System.out.println("Invalid command, can't use -d and -f together");
+				return null;
+			} else
 			return CommandParser.processPOST(commandStr);
 		case "get":
 			return CommandParser.processGET(commandStr);

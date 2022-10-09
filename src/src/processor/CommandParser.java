@@ -1,5 +1,6 @@
 package src.processor;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 import src.input.Command;
@@ -37,9 +38,12 @@ public class CommandParser {
 		if (command.contains(" -h ")) { // extract headers
 			int headerEndIndex = command.length();
 			String headerPart = command.substring(command.indexOf("-h"), headerEndIndex - 1);
-			headerPart = headerPart.replace("-h", "").trim();
+			// System.out.println(headerPart);
+			String[] headers = headerPart.substring(3).split("-h");
+			// headerPart = headerPart.replace("-h", "").trim();
 
-			HashMap<String, String> headerMap = createHeaderMap(headerPart);
+			HashMap<String, String> headerMap = createHeaderMap(headers);
+			// System.out.println(headerMap);
 			commandObj.setHeaders(headerMap);
 
 		}
@@ -76,11 +80,12 @@ public class CommandParser {
 			int headerEndIndex = command.indexOf("-d") == -1 ? command.indexOf("-f") : command.indexOf("-d");
 			headerEndIndex = headerEndIndex == -1 ? command.length() : headerEndIndex;
 			String headerPart = command.substring(command.indexOf("-h"), headerEndIndex - 1);
-			headerPart = headerPart.replace("-h", "").trim();
+			// System.out.println(headerPart);
+			String[] headers = headerPart.substring(3).split("-h");
+			// headerPart = headerPart.replace("-h", "").trim();
 
-			HashMap<String, String> headerMap = createHeaderMap(headerPart);
+			HashMap<String, String> headerMap = createHeaderMap(headers);
 			commandObj.setHeaders(headerMap);
-
 		}
 
 		if (command.contains(" -d ")) {
@@ -100,13 +105,13 @@ public class CommandParser {
 		return commandObj;
 	}
 
-	private static HashMap<String, String> createHeaderMap(String headerPart) {
+	private static HashMap<String, String> createHeaderMap(String[] headerPart) {
 
+		System.out.println(Arrays.toString(headerPart));
 		HashMap<String, String> headerMap = new HashMap<String, String>();
-		String[] headerTokens = headerPart.split(" ");
-		for (String token : headerTokens) {
-			headerMap.put(token.substring(0, token.indexOf(":")),
-					token.substring(token.indexOf(":") + 1, token.length()));
+		for (int i=0; i< headerPart.length; i++) {
+			String[] headerTokens = headerPart[i].split(":");
+			headerMap.put(headerTokens[0], headerTokens[1]);
 		}
 
 		return headerMap;

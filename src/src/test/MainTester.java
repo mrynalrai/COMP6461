@@ -12,6 +12,7 @@ import java.net.Socket;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Map;
 import java.util.Scanner;
 
 import src.input.Command;
@@ -23,22 +24,24 @@ public class MainTester {
 	public static String PROJECT_LOCATION = "D:/Concordia/Fall 2022/CN/Ass#1/comp6461-lab01-12974d2246beb6926e4d993adcc746531b812a20";
 
 	public static void main(String[] args) throws Exception {
-
 		Scanner scanner = new Scanner(System.in);
-		String commandStr = scanner.nextLine();
 
-		InputParser commandParser = new InputParser();
+		while(true) {
+			String commandStr = scanner.nextLine();
 
-		Command command = commandParser.parseInput(commandStr);
+			InputParser inputParser = new InputParser();
 
-		if (command == null) {
-			scanner.close();
-			return;
+			Command command = inputParser.parseInput(commandStr);
+			// System.out.println(command);
+			if (command == null) {
+				scanner.close();
+				return;
+			}
+
+			processRequest(command);
+
+			// scanner.close();
 		}
-
-		processRequest(command);
-
-		scanner.close();
 	}
 
 	public static void processRequest(Command command) throws IOException {
@@ -61,10 +64,15 @@ public class MainTester {
 		// HTTP GET
 		if (command.getType().equals(RequestType.GET)) {
 
-			String request = "GET " + url.getPath() + "?" + url.getQuery() + " HTTP/1.0\r\n" + "Accept: */*\r\n"
-					+ "Host: " + host
-
-					+ "\r\n" + "Connection: Close\r\n\r\n";
+			String request = "GET " + url.getPath() + "?" + url.getQuery() + " HTTP/1.0\r\n";
+			// request += "Accept: */*\r\n";
+			for (Map.Entry<String,String> ele : command.getHeaders().entrySet()) {
+				String key = ele.getKey();
+				String value = ele.getValue();
+				request += key + " : " + value + "\r\n";
+			}
+			request += "Host: " + host;
+			request += "\r\n" + "Connection: Close\r\n\r\n";
 
 			// Sends off HTTP GET request
 			out.write(request.getBytes());
@@ -74,9 +82,18 @@ public class MainTester {
 					: command.getInlineData();
 			System.out.println(data);
 
-			String request = "POST " + url.getPath() + " HTTP/1.0\r\n" + "Accept: */*\r\n" + "Host: " + host + "\r\n"
-					+ "Content-Type: application/x-www-form-urlencoded\r\n" + "Content-Length: " + data.length()
-					+ "\r\n\r\n" + data;
+			// TODO: add multiple headers support
+			String request = "POST " + url.getPath() + " HTTP/1.0\r\n";
+			// request += "Accept: */*\r\n";
+			for (Map.Entry<String,String> ele : command.getHeaders().entrySet()) {
+				String key = ele.getKey();
+				String value = ele.getValue();
+				request += key + " : " + value + "\r\n";
+			}
+			request += "Host: " + host + "\r\n";
+			// request += "Content-Type: application/json\r\n";
+			request += "Content-Length: " + data.length() + "\r\n\r\n";
+			request += data;
 
 			// Send off HTTP POST request
 			out.write(request.getBytes());
@@ -111,9 +128,7 @@ public class MainTester {
 				System.out.print((char) c);
 			}
 
-		}
-
-		else {
+		} else {
 			StringBuffer response = new StringBuffer();
 			byte[] buffer = new byte[4096];
 			int bytes_read;
