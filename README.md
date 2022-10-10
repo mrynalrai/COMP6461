@@ -204,6 +204,14 @@ Access-Control-Allow-Credentials: true
   "url": "http://httpbin.org/post"
 }
 ```
+#### 7. Post with both -f and -d option
+```httpc post -v -f data-test.txt -d '{"Assignment": 1}' http://httpbin.org/post```
+##### Output
+The output of above command is:
+```javascript
+Invalid command, can't use -d and -f together
+```
+Above command results in the error as -d and -f can't be passed together
 ## How to Run
 Run the ```main``` method present in class ```MainApplication.java```. Type the command in the console, and press enter to see the results.
 
