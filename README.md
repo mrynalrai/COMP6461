@@ -108,6 +108,47 @@ The output of above command is:
   "url": "http://httpbin.org/post"
 }
 ```
+
+#### 4. Post with file data
+```httpc post -v -f data-test.txt http://httpbin.org/post```
+##### Output
+The output of above command is:
+```javascript
+{"Assignment": 1,
+"test": {
+	"inner": "value"
+}
+}
+
+
+HTTP/1.1 200 OK
+Date: Mon, 10 Oct 2022 03:45:09 GMT
+Content-Type: application/json
+Content-Length: 436
+Connection: close
+Server: gunicorn/19.9.0
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+{
+  "args": {}, 
+  "data": "{\"Assignment\": 1,\r\n\"test\": {\r\n\t\"inner\": \"value\"\r\n}\r\n}\r\n\r\n", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Content-Length": "57", 
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-63439545-08d6690c50693615187d894c"
+  }, 
+  "json": {
+    "Assignment": 1, 
+    "test": {
+      "inner": "value"
+    }
+  }, 
+  "origin": "184.145.152.16", 
+  "url": "http://httpbin.org/post"
+}
+```
 ## How to Run
 Run the ```main``` method present in class ```MainApplication.java```. Type the command in the console, and press enter to see the results.
 
