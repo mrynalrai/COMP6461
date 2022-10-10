@@ -1,7 +1,5 @@
 package src.input;
 
-import src.input.RequestType;
-
 import java.util.HashMap;
 
 public class Command {
@@ -37,11 +35,12 @@ public class Command {
 		this.type = type;
 	}
 
-	public boolean isVerboseOption() {
+	public boolean isVerbose() {
 		return verboseOption;
 	}
 
-	public void setVerboseOption(boolean verboseOption) {
+
+	public void setVerbose(boolean verboseOption) {
 		this.verboseOption = verboseOption;
 	}
 

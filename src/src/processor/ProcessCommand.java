@@ -6,44 +6,40 @@ import java.util.HashMap;
 import src.input.Command;
 import src.input.RequestType;
 
-public class CommandParser {
+public class ProcessCommand {
 
-	public static Command processGET(String command) {
+	public static Command processGET(String commandString) {
 
 		Command commandObj = new Command();
 		commandObj.setType(RequestType.GET);
 
-		if (command.contains(" -o ")) {
-			String outputFileName = command.substring(command.indexOf("-o"), command.length());
+		if (commandString.contains(" -o ")) {
+			String outputFileName = commandString.substring(commandString.indexOf("-o"), commandString.length());
 			outputFileName = outputFileName.replace("-o", "").trim();
 			commandObj.setOutputFileName(outputFileName);
 			System.out.println("outputFileName: " + outputFileName);
-			command = command.substring(0, command.indexOf("-o"));
+			commandString = commandString.substring(0, commandString.indexOf("-o"));
 		}
 
-		String url = getUrl(command);
+		String url = getUrl(commandString);
 
-		// clean command string
-		command = command.replace(url, "");
+		// clean commandString string
+		commandString = commandString.replace(url, "");
 		url = url.replaceAll("'", "");
 		commandObj.setUrl(url);
 
-		command = command.replace("httpc " + commandObj.getType().name().toLowerCase(), "");
+		commandString = commandString.replace("httpc " + commandObj.getType().name().toLowerCase(), "");
 
 		// check verbose option
-		boolean isVerbose = command.contains(" -v ");
-		command = isVerbose ? command.replace("-v", "") : command;
-		commandObj.setVerboseOption(isVerbose);
+		boolean isVerbose = commandString.contains(" -v ");
+		commandString = isVerbose ? commandString.replace("-v", "") : commandString;
+		commandObj.setVerbose(isVerbose);
 
-		if (command.contains(" -h ")) { // extract headers
-			int headerEndIndex = command.length();
-			String headerPart = command.substring(command.indexOf("-h"), headerEndIndex - 1);
-			// System.out.println(headerPart);
+		if (commandString.contains(" -h ")) { // extract headers
+			int headerEndIndex = commandString.length();
+			String headerPart = commandString.substring(commandString.indexOf("-h"), headerEndIndex - 1);
 			String[] headers = headerPart.substring(3).split("-h");
-			// headerPart = headerPart.replace("-h", "").trim();
-
 			HashMap<String, String> headerMap = createHeaderMap(headers);
-			// System.out.println(headerMap);
 			commandObj.setHeaders(headerMap);
 
 		}
@@ -61,7 +57,6 @@ public class CommandParser {
 			commandObj.setOutputFileName(outputFileName);
 			System.out.println("outputFileName: " + outputFileName);
 			command = command.substring(0, command.indexOf("-o"));
-
 		}
 
 		String url = getUrl(command);
@@ -74,15 +69,13 @@ public class CommandParser {
 		// check verbose option
 		boolean isVerbose = command.contains(" -v ");
 		command = isVerbose ? command.replace("-v", "") : command;
-		commandObj.setVerboseOption(isVerbose);
+		commandObj.setVerbose(isVerbose);
 
 		if (command.contains(" -h ")) { // extract headers
 			int headerEndIndex = command.indexOf("-d") == -1 ? command.indexOf("-f") : command.indexOf("-d");
 			headerEndIndex = headerEndIndex == -1 ? command.length() : headerEndIndex;
 			String headerPart = command.substring(command.indexOf("-h"), headerEndIndex - 1);
-			// System.out.println(headerPart);
 			String[] headers = headerPart.substring(3).split("-h");
-			// headerPart = headerPart.replace("-h", "").trim();
 
 			HashMap<String, String> headerMap = createHeaderMap(headers);
 			commandObj.setHeaders(headerMap);

@@ -1,6 +1,3 @@
 package src.input;
 
-public enum RequestType {
-
-	GET, POST
-}
+public enum RequestType { GET, POST }

@@ -1,4 +1,4 @@
-package src.test;
+package src.application;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,55 +17,48 @@ import java.util.Scanner;
 
 import src.input.Command;
 import src.input.RequestType;
-import src.processor.InputParser;
+import src.processor.ProcessInput;
 
-public class MainTester {
-
-	public static String PROJECT_LOCATION = "D:/Concordia/Fall 2022/CN/Ass#1/comp6461-lab01-12974d2246beb6926e4d993adcc746531b812a20";
+public class MainApplication {
+	public static String PROJECT_LOCATION = "D:/Concordia Academics/Fall 2022/COMP 6461/COMP6461/src/src";
 
 	public static void main(String[] args) throws Exception {
 		Scanner scanner = new Scanner(System.in);
 
 		while(true) {
-			String commandStr = scanner.nextLine();
+			String commandString = scanner.nextLine();
+			ProcessInput processInput = new ProcessInput();
+			Command command = processInput.parseInput(commandString);
 
-			InputParser inputParser = new InputParser();
-
-			Command command = inputParser.parseInput(commandStr);
-			// System.out.println(command);
 			if (command == null) {
 				scanner.close();
 				return;
 			}
-
 			processRequest(command);
-
-			// scanner.close();
 		}
 	}
 
 	public static void processRequest(Command command) throws IOException {
 
 		URL url = new URL(command.getUrl().replaceAll("'", ""));
-
 		String host = url.getHost();
 		int port = 80;
-
 		// Resolve the host name to an IP address
-		InetAddress ip = InetAddress.getByName(host);
+		InetAddress ipAddress = InetAddress.getByName(host);
 
 		// Open socket to a specific host and port
 		Socket socket = new Socket(host, port);
 
 		// Get input and output streams for the socket
-		OutputStream out = socket.getOutputStream();
+		OutputStream outStream = socket.getOutputStream();
+
 		String method = url.getPath().contains("get") ? "GET" : "POST";
 
 		// HTTP GET
 		if (command.getType().equals(RequestType.GET)) {
 
 			String request = "GET " + url.getPath() + "?" + url.getQuery() + " HTTP/1.0\r\n";
-			// request += "Accept: */*\r\n";
+
 			for (Map.Entry<String,String> ele : command.getHeaders().entrySet()) {
 				String key = ele.getKey();
 				String value = ele.getValue();
@@ -75,57 +68,55 @@ public class MainTester {
 			request += "\r\n" + "Connection: Close\r\n\r\n";
 
 			// Sends off HTTP GET request
-			out.write(request.getBytes());
-			out.flush();
+			outStream.write(request.getBytes());
+			outStream.flush();
 		} else if (command.getType().equals(RequestType.POST)) { // HTTP POST
 			String data = command.getFilePath() != null ? getFileContent(command.getFilePath())
 					: command.getInlineData();
 			System.out.println(data);
 
-			// TODO: add multiple headers support
+			//multiple headers support
 			String request = "POST " + url.getPath() + " HTTP/1.0\r\n";
-			// request += "Accept: */*\r\n";
 			for (Map.Entry<String,String> ele : command.getHeaders().entrySet()) {
 				String key = ele.getKey();
 				String value = ele.getValue();
 				request += key + " : " + value + "\r\n";
 			}
 			request += "Host: " + host + "\r\n";
-			// request += "Content-Type: application/json\r\n";
 			request += "Content-Length: " + data.length() + "\r\n\r\n";
 			request += data;
 
 			// Send off HTTP POST request
-			out.write(request.getBytes());
-			out.flush();
+			outStream.write(request.getBytes());
+			outStream.flush();
 		} else {
 			System.out.println("Invalid HTTP method");
 			socket.close();
 			return;
 		}
 
-		InputStream in = socket.getInputStream();
+		InputStream inputStream = socket.getInputStream();
 		boolean writeToFile = false;
 		if (command.getOutputFileName() != null) {
 			writeToFile = true;
 		}
 
-		PrintStream ps = null;
+		PrintStream printStream = null;
 
 		if (writeToFile) {
-			ps = new PrintStream(new File(PROJECT_LOCATION + "/output/" + command.getOutputFileName()));
+			printStream = new PrintStream(new File(PROJECT_LOCATION + "/output/" + command.getOutputFileName()));
 
 		} else {
-			ps = System.out;
+			printStream = System.out;
 		}
-		System.setOut(ps);
+		System.setOut(printStream);
 
-		if (command.isVerboseOption()) {
-			InputStreamReader isr = new InputStreamReader(in);
-			BufferedReader br = new BufferedReader(isr);
-			int c;
-			while ((c = br.read()) != -1) {
-				System.out.print((char) c);
+		if (command.isVerbose()) {
+			InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+			int i;
+			while ((i = bufferedReader.read()) != -1) {
+				System.out.print((char) i);
 			}
 
 		} else {
@@ -134,7 +125,7 @@ public class MainTester {
 			int bytes_read;
 
 			// Reads HTTP response
-			while ((bytes_read = in.read(buffer, 0, 4096)) != -1) {
+			while ((bytes_read = inputStream.read(buffer, 0, 4096)) != -1) {
 				// Print server's response
 				for (int i = 0; i < bytes_read; i++)
 					response.append((char) buffer[i]);

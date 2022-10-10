@@ -4,37 +4,31 @@ import src.input.Command;
 
 import java.util.Arrays;
 
-public class InputParser {
+public class ProcessInput {
+	public Command parseInput(String commandString) {
 
-	public Command parseInput(String commandStr) {
-
-		if (!commandStr.startsWith("httpc")) {
+		if (!commandString.startsWith("httpc")) {
 			return null;
 		}
 
-		String[] tokens = commandStr.split(" ");
-
-		if (tokens.length == 0) {
+		String[] commandArray = commandString.split(" ");
+		if (commandArray.length == 0) {
 			return null;
 		}
 
-		String commandType = tokens[1];
-		// System.out.println(Arrays.toString(tokens));
+		String commandType = commandArray[1];
 		switch (commandType) {
-
 		case "help":
-			String helpType = tokens.length == 3 ? tokens[2] : "none";
-			return printHelpMenu(helpType);
-
+			String help = commandArray.length == 3 ? commandArray[2] : "none";
+			return printHelpMenu(help);
 		case "post":
-			if (Arrays.stream(tokens).anyMatch("-d"::equals) && Arrays.stream(tokens).anyMatch("-f"::equals)) {
+			if (Arrays.stream(commandArray).anyMatch("-d"::equals) && Arrays.stream(commandArray).anyMatch("-f"::equals)) {
 				System.out.println("Invalid command, can't use -d and -f together");
 				return null;
 			} else
-			return CommandParser.processPOST(commandStr);
+			return ProcessCommand.processPOST(commandString);
 		case "get":
-			return CommandParser.processGET(commandStr);
-
+			return ProcessCommand.processGET(commandString);
 		default:
 			System.out.println("Invalid command, use 'httpc help' for valid commands");
 		}
