@@ -103,7 +103,42 @@ The output of above command is:
   "url": "http://httpbin.org/get?course=networking&assignment=1"
 }
 ```
-#### 4. Post with inline data
+
+#### 4. Get with header option and output to output.txt file
+```httpc get -v -h Content-Type:application/json 'http://httpbin.org/get?course=networking&assignment=1' -o output.txt```
+##### Output
+The output of above command is:
+```javascript
+outputFileName: output.txt
+```
+
+And Output.txt file will contain the actual output as below:
+```javascript
+HTTP/1.1 200 OK
+Date: Mon, 10 Oct 2022 03:56:16 GMT
+Content-Type: application/json
+Content-Length: 325
+Connection: close
+Server: gunicorn/19.9.0
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+
+{
+  "args": {
+    "assignment": "1", 
+    "course": "networking"
+  }, 
+  "headers": {
+    "Content-Type": "application/json", 
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-634397e0-187c91f807dccf0e3b255764"
+  }, 
+  "origin": "184.145.152.16", 
+  "url": "http://httpbin.org/get?course=networking&assignment=1"
+}
+
+```
+#### 5. Post with inline data
 ```httpc post -h Content-Type:application/json --d '{"Assignment": 1}' http://httpbin.org/post```
 ##### Output
 The output of above command is:
@@ -129,7 +164,7 @@ The output of above command is:
 }
 ```
 
-#### 5. Post with file data
+#### 6. Post with file data
 ```httpc post -v -f data-test.txt http://httpbin.org/post```
 ##### Output
 The output of above command is:
