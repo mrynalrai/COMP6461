@@ -40,18 +40,17 @@ options -d or -f.
 #### 1. Get with query parameters
 ```httpc get 'http://httpbin.org/get?course=networking&assignment=1'```
 ##### Output
-The output of above command is:
-```javascript
 {
- "args": {
- "assignment": "1",
- "course": "networking"
- },
- "headers": {
- "Host": "httpbin.org",
- "User-Agent": "Concordia-HTTP/1.0"
- },
- "url": "http://httpbin.org/get?course=networking&assignment=1"
+  "args": {
+    "assignment": "1", 
+    "course": "networking"
+  }, 
+  "headers": {
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-6343846f-5f9af85836f79e980a1897e7"
+  }, 
+  "origin": "184.145.152.16", 
+  "url": "http://httpbin.org/get?course=networking&assignment=1"
 }
 ```
 #### 2. Get with verbose option
@@ -60,22 +59,25 @@ The output of above command is:
 The output of above command is:
 ```javascript
 HTTP/1.1 200 OK
-Server: nginx
-Date: Fri, 1 Sep 2017 14:52:12 GMT
+Date: Mon, 10 Oct 2022 02:33:54 GMT
 Content-Type: application/json
-Content-Length: 255
+Content-Length: 284
 Connection: close
+Server: gunicorn/19.9.0
 Access-Control-Allow-Origin: *
-Access-Control-Allow-Credentials: true{
- "args": {
- "assignment": "1",
- "course": "networking"
- },
- "headers": {
- "Host": "httpbin.org",
- "User-Agent": "Concordia-HTTP/1.0"
- },
- "url": "http://httpbin.org/get?course=networking&assignment=1"
+Access-Control-Allow-Credentials: true
+
+{
+  "args": {
+    "assignment": "1", 
+    "course": "networking"
+  }, 
+  "headers": {
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-63438492-15d8f098026b5f5242fa8bb3"
+  }, 
+  "origin": "184.145.152.16", 
+  "url": "http://httpbin.org/get?course=networking&assignment=1"
 }
 ```
 #### 3. Post with inline data
@@ -83,21 +85,24 @@ Access-Control-Allow-Credentials: true{
 ##### Output
 The output of above command is:
 ```javascript
+[Content-Type:application/json]
+{"Assignment": 1}
 {
- "args": {},
- "data": "{\"Assignment\": 1}",
- "files": {},
- "form": {},
- "headers": {
- "Content-Length": "17",
- "Content-Type": "application/json",
- "Host": "httpbin.org",
- "User-Agent": "Concordia-HTTP/1.0"
- },
- "json": {
- "Assignment": 1
- },
- "url": "http://httpbin.org/post"
+  "args": {}, 
+  "data": "{\"Assignment\": 1}", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Content-Length": "17", 
+    "Content-Type": "application/json", 
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-634384d7-10a045260990ab656bf2396f"
+  }, 
+  "json": {
+    "Assignment": 1
+  }, 
+  "origin": "184.145.152.16", 
+  "url": "http://httpbin.org/post"
 }
 ```
 ## How to Run
