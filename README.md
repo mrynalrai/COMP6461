@@ -139,7 +139,7 @@ Access-Control-Allow-Credentials: true
 
 ```
 #### 5. Post with inline data
-```httpc post -h Content-Type:application/json --d '{"Assignment": 1}' http://httpbin.org/post```
+```httpc post -h Content-Type:application/json -d '{"Assignment": 1}' http://httpbin.org/post```
 ##### Output
 The output of above command is:
 ```javascript
