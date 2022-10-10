@@ -73,7 +73,7 @@ public class MainApplication {
 		} else if (command.getType().equals(RequestType.POST)) { // HTTP POST
 			String data = command.getFilePath() != null ? getFileContent(command.getFilePath())
 					: command.getInlineData();
-			System.out.println(data);
+			// System.out.println(data);
 
 			//multiple headers support
 			String request = "POST " + url.getPath() + " HTTP/1.0\r\n";

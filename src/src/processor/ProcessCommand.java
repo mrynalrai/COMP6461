@@ -100,7 +100,7 @@ public class ProcessCommand {
 
 	private static HashMap<String, String> createHeaderMap(String[] headerPart) {
 
-		System.out.println(Arrays.toString(headerPart));
+		// System.out.println(Arrays.toString(headerPart));
 		HashMap<String, String> headerMap = new HashMap<String, String>();
 		for (int i=0; i< headerPart.length; i++) {
 			String[] headerTokens = headerPart[i].split(":");
