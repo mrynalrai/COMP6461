@@ -83,7 +83,27 @@ Access-Control-Allow-Credentials: true
   "url": "http://httpbin.org/get?course=networking&assignment=1"
 }
 ```
-#### 3. Post with inline data
+#### 3. Get with header option
+```httpc get -h Content-Type:application/json http://httpbin.org/get?course=networking&assignment=1```
+##### Output
+The output of above command is:
+```javascript
+[Content-Type:application/json]
+{
+  "args": {
+    "assignment": "1", 
+    "course": "networking"
+  }, 
+  "headers": {
+    "Content-Type": "application/json", 
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-634396e3-50b059b4503ae99c44dc0193"
+  }, 
+  "origin": "184.145.152.16", 
+  "url": "http://httpbin.org/get?course=networking&assignment=1"
+}
+```
+#### 4. Post with inline data
 ```httpc post -h Content-Type:application/json --d '{"Assignment": 1}' http://httpbin.org/post```
 ##### Output
 The output of above command is:
@@ -109,7 +129,7 @@ The output of above command is:
 }
 ```
 
-#### 4. Post with file data
+#### 5. Post with file data
 ```httpc post -v -f data-test.txt http://httpbin.org/post```
 ##### Output
 The output of above command is:
