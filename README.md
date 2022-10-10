@@ -1,6 +1,6 @@
 # COMP 6461
 # LAB ASSIGNMENT 1
-## By Pranoti Mulay
+## Mrinal Rai and Akshay Dhabale
 
 Content - Overview, How to Run, Test Cases
 
@@ -101,7 +101,7 @@ The output of above command is:
 }
 ```
 ## How to Run
-Run the ```main``` method present in class ```MainTester.java```. Type the command in the console, and press enter to see the results.
+Run the ```main``` method present in class ```MainApplication.java```. Type the command in the console, and press enter to see the results.
 
 ## Test Cases
-Sample test case commands are present inside the ```sample-commands.txt``` file
+Sample test case commands are present inside the ```commands.txt``` file
