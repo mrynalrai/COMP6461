@@ -55,9 +55,10 @@ options -d or -f.
 ```
 #### 2. Get with verbose option
 ```httpc get -v 'http://httpbin.org/get?course=networking&assignment=1'```
+```javascript
 ##### Output
 The output of above command is:
-```javascript
+
 HTTP/1.1 200 OK
 Date: Mon, 10 Oct 2022 02:33:54 GMT
 Content-Type: application/json
