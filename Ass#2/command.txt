@@ -1,0 +1,22 @@
+Command to RUN :
+    
+    
+====> Run the server file
+Specify the FTP directory after -d
+    httpfs -v -p 8080 -d D://FTP
+ 
+====> Run FTPClient (httpc option)
+	httpc http://localhost:8080/get/
+	httpc http://localhost:8080/get/file1.txt
+	httpc http://localhost:8080/post/test1.txt -d '{"Assignment":2}'  
+	httpc -h overwrite:true http://localhost:8080/post/test1.txt -d '{"test":1235}'   
+	
+	
+====>Content-Type
+    httpc -h Content-Type:json http://localhost:8080/get/
+    httpc -h Content-Type:html http://localhost:8080/get/
+    httpc -h Content-Type:txt http://localhost:8080/get/
+    
+====>Content-Disposition
+     httpc -h Content-Disposition:attachment http://localhost:8080/get/test1.txt
+  

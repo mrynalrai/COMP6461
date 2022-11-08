@@ -20,7 +20,7 @@ import src.input.RequestType;
 import src.processor.ProcessInput;
 
 public class MainApplication {
-	public static String PROJECT_LOCATION = "D:/Concordia Academics/Fall 2022/COMP 6461/COMP6461";
+	public static String PROJECT_LOCATION = "D:/Concordia/Fall 2022/CN/COMP6461/Ass#2/";
 
 	public static void main(String[] args) throws Exception {
 		Scanner scanner = new Scanner(System.in);

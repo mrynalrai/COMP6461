@@ -1,0 +1,11 @@
+{
+	"args":{},
+	"headers": {
+		"Content-Disposition": "attachment",
+		"Connection": "close",
+		"Host": "localhost"
+	},
+	"data": "{"test":1235}",
+	"origin": "192.168.2.15",
+	"url": "httpc -h Content-Disposition:attachment http://localhost:8080/get/test1.txt"
+}
