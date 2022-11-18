@@ -44,6 +44,8 @@ public class ClientFTP {
 			System.out.print("Please Enter File transfer command --> ");
 			Scanner scanner = new Scanner(System.in);
 			request = scanner.nextLine();
+
+			// -d because you need content for post call
 			if (request.isEmpty() || request.length() == 0 || (request.contains("post") && !request.contains("-d"))) {
 				System.out.println("Invalid Command or Please enter POST url with inline data");
 				continue;
@@ -73,7 +75,8 @@ public class ClientFTP {
 			objectInputStream = new ObjectInputStream(socket.getInputStream());
 			System.out.println("Sending request to Socket Server");
 			objectOutputStream.writeObject(clientRequest);
-
+			System.out.println(clientRequest);
+			System.out.println();
 			objectOutputStream.writeObject("Test");
 
 			String method = clientRequest.getRequestMethod();

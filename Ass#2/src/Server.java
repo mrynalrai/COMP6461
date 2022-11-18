@@ -37,7 +37,7 @@ public class Server {
 	static final String FILE_OVERWRITTEN_STATUS_CODE = "HTTP/1.1 201 FILE OVER-WRITTEN";
 	static final String FILE_NOT_OVERWRITTEN_STATUS_CODE = "HTTP/1.1 201 FILE NOT OVER-WRITTEN";
 	static final String NEW_FILE_CREATED_STATUS_CODE = "HTTP/1.1 202 NEW FILE CREATED";
-	static final String CONNECTIONA_LIVE = "Connection: keep-alive";
+	static final String CONNECTION_ALIVE = "Connection: keep-alive";
 	
 	//Create serversocket to accept requests
 	private static ServerSocket serverSocket;
@@ -58,7 +58,7 @@ public class Server {
 	public static void main(String[] args) throws IOException, ClassNotFoundException, URISyntaxException {
 
 		String request;
-		List<String> requestList = new ArrayList<>();
+		List<String> requestList;
 
 		String directory = System.getProperty("user.dir");
 
@@ -76,19 +76,23 @@ public class Server {
 			requestList.add(requestArray[i]);
 		}
 
+		// Activates debugger
 		if (requestList.contains("-v")) {
 			debug = true;
 		}
 
+		// Assigns port number
 		if (requestList.contains("-p")) {
 			String portStr = requestList.get(requestList.indexOf("-p") + 1).trim();
 			port = Integer.valueOf(portStr);
 		}
 
+		// Updates directory
 		if (requestList.contains("-d")) {
 			directory = requestList.get(requestList.indexOf("-d") + 1).trim();
 			System.out.println("Dir ==>>>>> " + directory);
 		}
+
 		serverSocket = new ServerSocket(port);
 		if (debug)
 			System.out.println("Server is up and it assign to port Number: " + port);
@@ -99,7 +103,7 @@ public class Server {
 
 			serverResponse = new ServerResponse();
 
-			Socket socket = serverSocket.accept();
+			Socket socket = serverSocket.accept();	// It is a blocking call
 			if (debug)
 				System.out.println("Server is Connected to client ------>>");
 
@@ -109,115 +113,12 @@ public class Server {
 			//convert object stream to string
 			clientRequest = (ClientRequest) objectInputStream.readObject();
 
+			// Headers
 			String clientType = clientRequest.getClientType();
-
 			String method = clientRequest.getRequestMethod();
-
 			String responseHeaders = getResponseHeaders(OK_STATUS_CODE);
 
-			if (clientType.equalsIgnoreCase("httpc")) {
-
-				String URL = clientRequest.getRequestUrl();
-				URI uri = new URI(clientRequest.getRequestUrl());
-				String hostName = uri.getHost();
-
-				String query = uri.getQuery();
-
-				System.out.println("clientType ==> " + clientType);
-
-				if (debug)
-					System.out.println(" Server is Processing the httpc request");
-
-				String[] paramArr = {};
-				if (query != null && !query.isEmpty()) {
-
-					paramArr = query.split("&");
-				}
-				String inlineData = "";
-				String fileData = "";
-
-				if (clientRequest.isVerbosePreset()) {
-					serverResponse.setResponseHeaders(responseHeaders);
-				}
-				String body = "{\n";
-				body = body + "\t\"args\":";
-				body = body + "{";
-				if (paramArr.length > 0) {
-					for (int i = 0; i < paramArr.length; i++) {
-						body = body + "\n\t    \"" + paramArr[i].substring(0, paramArr[i].indexOf("=")) + "\": \""
-								+ paramArr[i].substring(paramArr[i].indexOf("=") + 1) + "\"";
-						if (i != paramArr.length - 1) {
-							body = body + ",";
-						} else {
-							body = body + "\n";
-							body = body + "\t},\n";
-						}
-					}
-				} else {
-					body = body + "},\n";
-				}
-
-				//Process post request
-				if (method.equalsIgnoreCase("POST")) {
-					body = body + "\t\"data\": ";
-					if (clientRequest.isInlineData()) {
-						inlineData = clientRequest.getInlineData();
-						body = body + "\"" + inlineData + "\",\n";
-					} else if (clientRequest.isFilesend()) {
-						fileData = clientRequest.getFileSendData();
-						body = body + "\"" + fileData + "\",\n";
-					} else {
-						body = body + "\"\",\n";
-					}
-					body = body + "\t\"files\": {},\n";
-					body = body + "\t\"form\": {},\n";
-				}
-
-				body = body + "\t\"headers\": {";
-
-				if (clientRequest.isHttpHeader()) {
-
-					for (String header : clientRequest.getHeaderLst()) {
-						String[] headerArr = header.split(":");
-						if (headerArr[0].equalsIgnoreCase("connection"))
-							continue;
-						body = body + "\n\t\t\"" + headerArr[0] + "\": \"" + headerArr[1].trim() + "\",";
-
-					}
-				}
-				if (clientRequest.isInlineData()) {
-					body = body + "\n\t\t\"Content-Length\": \"" + clientRequest.getInlineData().length() + "\",";
-				} else if (clientRequest.isFilesend()) {
-					body = body + "\n\t\t\"Content-Length\": \"" + clientRequest.getFileSendData().length() + "\",";
-				}
-				body = body + "\n\t\t\"Connection\": \"close\",\n";
-				body = body + "\t\t\"Host\": \"" + hostName + "\"\n";
-				body = body + "\t},\n";
-
-				if (method.equalsIgnoreCase("POST")) {
-					body = body + "\t\"json\": ";
-					if (clientRequest.isInlineData()) {
-						body = body + "{\n\t\t " + inlineData.substring(1, inlineData.length() - 1) + "\n\t},\n";
-					} else {
-						body = body + "{\n\t\t " + fileData + "\n\t},\n";
-					}
-				}
-				body = body + "\t\"origin\": \"" + InetAddress.getLocalHost().getHostAddress() + "\",\n";
-				body = body + "\t\"url\": \"" + URL + "\"\n";
-				body = body + "}";
-
-				serverResponse.setBody(body);
-				
-				if (debug)
-					System.out.println("Sending the response to Client ======>");
-
-			
-				objectOutputStream.writeObject(serverResponse);
-				objectInputStream.close();
-				objectOutputStream.close();
-				socket.close();
-
-			} else if (clientType.equalsIgnoreCase("httpfs")) {
+				if (clientType.equalsIgnoreCase("httpfs")) {
 
 				URI uri = new URI(clientRequest.getRequestUrl());
 				String hostName = uri.getHost();
@@ -305,14 +206,16 @@ public class Server {
 
 				}
 
+				// POST
 				else if (!method.endsWith("/") && method.contains("post/")) {
 					String fileName = method.split("/")[1];
 					File file = new File(fileName);
 					List<String> files = getFilesFromDir(currentFolder);
 					if (files.contains(fileName)) {
-
+						// overwrite
 						if (URL.contains("overwrite")) {
 							String overwrite = clientRequest.getHeaderLst().get(0).split(":")[1];
+							// If overwrite header is true then overwrite the data
 							if (overwrite.equalsIgnoreCase("true")) {
 								synchronized (file) {
 									file.delete();
@@ -324,10 +227,12 @@ public class Server {
 								}
 								responseHeaders = getResponseHeaders(FILE_OVERWRITTEN_STATUS_CODE);
 							} else {
+								// If overwrite header is true then don't overwrite the data
 								responseHeaders = getResponseHeaders(FILE_NOT_OVERWRITTEN_STATUS_CODE);
 							}
 						} else {
 							synchronized (file) {
+								// If overwrite header is not mention then overwrite the data. No check if required.
 								file.delete();
 								file = new File(directory + "/" + fileName);
 								file.createNewFile();
@@ -339,7 +244,7 @@ public class Server {
 						}
 
 					} else {
-
+						// Create a new file if the file does not exists
 						file = new File(directory + "/" + fileName);
 						synchronized (file) {
 							file.createNewFile();
@@ -396,7 +301,7 @@ public class Server {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
 		String datetime = dateFormat.format(date);
-		String responseHeaders = status + "\n" + CONNECTIONA_LIVE + "\n" + Server.SERVER + "\n" + Server.DATE + datetime
+		String responseHeaders = status + "\n" + CONNECTION_ALIVE + "\n" + Server.SERVER + "\n" + Server.DATE + datetime
 				+ "\n" + ACCESS_CONTROL_ALLOW_ORIGIN + "\n" + ACCESS_CONTROL_ALLOW_CREDENTIALS + "\n" + VIA + "\n";
 		return responseHeaders;
 	}
