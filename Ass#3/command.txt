@@ -1,0 +1,32 @@
+For Server :
+    
+httpfs -v -p 8080 -d /Users/zankhanapatel/Downloads/
+httpfs -v -p 8080
+    
+For Client :
+    
+httpc http://localhost:8080/get/
+httpc http://localhost:8080/post/test.txt -d '{"Assignment":123qqqasq9090}'
+httpc http://localhost:8080/post/test12.json -d '{"Assignment":1}'
+httpc http://localhost:8080/post/test12345.json -d '{"test":123}'
+httpc -h overwrite:true http://localhost:8080/post/test12345.json -d '{"test":12345}'
+httpc http://localhost:8080/get/abc.txt
+httpc http://localhost:8080/get/test.txt
+httpc http://localhost:8080/get/test99.txt
+httpc http://localhost:8080/post/123.txt -d ceedede   
+httpc -h overwrite:true http://localhost:8080/post/123.txt -d ceededebefbehfbehfbehfbehfbe    
+httpc -h overwrite:false http://localhost:8080/post/123.txt -d 123
+	
+====>Content-Type
+httpc -h Content-Type:txt http://localhost:8080/get/
+httpc -h Content-Type:json http://localhost:8080/get/
+httpc -h Content-Type:html http://localhost:8080/get/
+  
+====>Content-Disposition
+httpc -h Content-Disposition:attachment http://localhost:8080/get/test.txt
+    
+For Router:
+    
+./router --port=3000 --drop-rate=0.2 --max-delay=10ms --seed=1
+
+(Run router file from macos folder from cmd with above command)
