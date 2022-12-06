@@ -54,11 +54,11 @@ public class Server {
 		String request;
 		List<String> serverRequestList = new ArrayList<>();
 
-		System.out.print("Please enter command>");
+		System.out.print("Please enter command--->");
 		Scanner sc = new Scanner(System.in);
 		request = sc.nextLine();
 		if (request.isEmpty() || request.length() == 0) {
-			System.out.println("Invalid Command Please try again!!");
+			System.out.println("Invalid Command Please enter valid command");
 		}
 		String[] serverRequestArray = request.split(" ");
 		serverRequestList = new ArrayList<>();
@@ -151,9 +151,6 @@ public class Server {
 	/**
 	 * This method id the entry point requesting client to connect to server based
 	 * on client type
-	 * 
-	 * @param requestPayload
-	 * @return response body
 	 */
 	private String processPayload(String requestPayload) throws Exception {
 
@@ -260,9 +257,9 @@ public class Server {
 				responseHeaders = getResponseHeaders(FILE_NOT_FOUND_STATUS_CODE);
 			} else {
 				File file = new File(dir + "/" + requestedFileName);
-				BufferedReader breader = new BufferedReader(new FileReader(file));
+				BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
 				String st;
-				while ((st = breader.readLine()) != null) {
+				while ((st = bufferedReader.readLine()) != null) {
 					fileData = fileData + st;
 				}
 				if (requestPayload.contains("Content-Disposition:attachment")) {
@@ -284,9 +281,9 @@ public class Server {
 					file.delete();
 					file = new File(dir + "/" + fileName);
 					file.createNewFile();
-					FileWriter fw = new FileWriter(file);
-					fw.write(requestPayload.substring(requestPayload.indexOf("-d") + 3));
-					fw.close();
+					FileWriter fileWriter = new FileWriter(file);
+					fileWriter.write(requestPayload.substring(requestPayload.indexOf("-d") + 3));
+					fileWriter.close();
 				}
 				responseHeaders = getResponseHeaders(FILE_OVERWRITTEN_STATUS_CODE);
 			}
@@ -295,13 +292,13 @@ public class Server {
 				file = new File(dir + "/" + fileName);
 				synchronized (file) {
 					file.createNewFile();
-					FileWriter fw = new FileWriter(file);
-					BufferedWriter bw = new BufferedWriter(fw);
-					PrintWriter pw = new PrintWriter(bw);
+					FileWriter fileWriter = new FileWriter(file);
+					BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+					PrintWriter printWriter = new PrintWriter(bufferedWriter);
 
-					pw.print(requestPayload.substring(requestPayload.indexOf("-d") + 3));
-					pw.flush();
-					pw.close();
+					printWriter.print(requestPayload.substring(requestPayload.indexOf("-d") + 3));
+					printWriter.flush();
+					printWriter.close();
 				}
 				responseHeaders = getResponseHeaders(NEW_FILE_CREATED_STATUS_CODE);
 			}
@@ -322,8 +319,6 @@ public class Server {
 	/**
 	 * This method will give list of files from specific directory
 	 * 
-	 * @author <a href="mailto:z_tel@encs.concordia.ca">Zankhanaben Patel</a>
-	 * @return List of files
 	 */
 	static private List<String> getFilesFromDir(File currentDir) {
 		List<String> filelist = new ArrayList<>();
@@ -338,8 +333,6 @@ public class Server {
 	/**
 	 * This method will give responseHeader in format
 	 * 
-	 * @author <a href="mailto:z_tel@encs.concordia.ca">Zankhanaben Patel</a>
-	 * @return String
 	 */
 	static String getResponseHeaders(String status) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
